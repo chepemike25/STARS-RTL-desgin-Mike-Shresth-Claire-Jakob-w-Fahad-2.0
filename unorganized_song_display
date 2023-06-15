@@ -1,0 +1,111 @@
+`default_nettype none
+// Empty top module
+
+module top (
+  // I/O ports
+  input  logic hz100, reset,
+  input  logic [20:0] pb,
+  output logic [7:0] left, right,
+         ss7, ss6, ss5, ss4, ss3, ss2, ss1, ss0,
+  output logic red, green, blue,
+
+  // UART ports
+  output logic [7:0] txdata,
+  input  logic [7:0] rxdata,
+  output logic txclk, rxclk,
+  input  logic txready, rxready
+);
+
+  // Your code goes here...
+  logic [31:0] song [1:0];
+  assign song[1] = 32'b11001100110011001100110011001100;
+  assign song[0] = 32'b10101010101010101010101010101010;
+  assign {ss7[0], ss7[3], ss7[6]} = 3'b111;
+  display disp(.notes1(song[0]), .notes2(song[1]), .clk(hz100), .rst(reset), .bpm(8'd99), .out({ss7[1], ss7[5], ss7[2], ss7[4], ss6[6:0], ss5[6:0], ss4[6:0], ss3[6:0], ss2[6:0], ss1[6:0], ss0[6:0]}), .beat({ss7[7], ss6[7], ss5[7], ss4[7], ss3[7], ss2[7], ss1[7], ss0[7]}));
+endmodule
+
+// Add more modules down here...
+module display
+#(
+  parameter NUM_BEATS = 32 
+)
+(
+  input logic [NUM_BEATS - 1 : 0] notes1, notes2,
+  input logic clk, rst,
+  input logic [7:0] bpm,
+  output logic [52:0] out,
+  output logic [7:0] beat
+);
+  logic [NUM_BEATS + 7 : 0] padded_note1, padded_note2, shift1, shift2;
+  logic [6:0] note1, note2; 
+  logic [7:0] curr1, curr2;
+  logic scroll;
+  logic [7:0] next_beat;
+  clk_div speed(.clk(clk), .rst(rst), .lim(bpm), .hzX(scroll));
+  
+  always_ff @ (posedge clk, posedge rst) begin
+    if (rst) begin
+      padded_note1 <= {8'b0, notes1};
+      padded_note2 <= {8'b0, notes2};
+      beat <= 8'b10101010;
+    end
+    else begin
+      beat <= next_beat;
+      padded_note1 <= shift1;
+      padded_note2 <= shift2;
+    end
+  end
+  
+  always_comb begin
+    if (scroll) begin
+      shift1 = padded_note1 << 1;
+      shift2 = padded_note2 << 1;
+      next_beat = ~beat;
+    end
+    else begin
+      shift1 = padded_note1;
+      shift2 = padded_note2;
+      next_beat = beat;
+    end
+    
+    note1 = 7'b1100011;
+    note2 = 7'b1011100;
+    curr1 = padded_note1[NUM_BEATS + 7: NUM_BEATS];
+    curr2 = padded_note2[NUM_BEATS + 7: NUM_BEATS];
+    
+    out[52:49] = ({2'b11, 2'b0} & {4{curr1[7]}}) | ({2'b0, 2'b11} & {4{curr2[7]}});
+    out[48:42] = (note1 & {7{curr1[6]}}) | (note2 & {7{curr2[6]}});
+    out[41:35] = (note1 & {7{curr1[5]}}) | (note2 & {7{curr2[5]}});
+    out[34:28] = (note1 & {7{curr1[4]}}) | (note2 & {7{curr2[4]}});
+    out[27:21] = (note1 & {7{curr1[3]}}) | (note2 & {7{curr2[3]}});
+    out[20:14] = (note1 & {7{curr1[2]}}) | (note2 & {7{curr2[2]}});
+    out[13:7] = (note1 & {7{curr1[1]}}) | (note2 & {7{curr2[1]}});
+    out[6:0] = (note1 & {7{curr1[0]}}) | (note2 & {7{curr2[0]}});
+    
+  end
+  
+endmodule
+
+module clk_div(
+  input logic clk, rst,
+  input logic [7:0] lim,
+  output logic hzX
+);
+  reg [7:0] counter;
+  always_ff @ (posedge clk, posedge rst) begin
+    if (rst) begin
+      counter <= 0;
+      hzX <= 0;
+    end
+    else begin
+      if (counter == lim - 1) begin
+        counter <= 0;
+        hzX <= 1'b1;
+      end
+      else begin
+        counter <= counter + 1;
+        hzX <= 1'b0;
+      end
+    end
+  end
+endmodule
