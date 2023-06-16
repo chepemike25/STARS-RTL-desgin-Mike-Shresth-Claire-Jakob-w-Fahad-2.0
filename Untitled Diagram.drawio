@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-06-16T13:19:38.309Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="-FLqI-AT-qATAXVrwb0C" version="15.4.0" type="github" pages="2">
+<mxfile host="app.diagrams.net" modified="2023-06-16T13:29:37.160Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="dyDmFCVuqeUhsqF2PGqg" version="15.4.0" type="github" pages="2">
   <diagram name="Top RTL" id="1S8q2XNDmcsXaV_S7nfN">
     <mxGraphModel dx="2403" dy="689" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -684,14 +684,16 @@
         <mxCell id="ysZuTdz0AB-t4gffEBgU-4" value="rst" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
           <mxGeometry x="1455" y="1870" width="30" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="ysZuTdz0AB-t4gffEBgU-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ysZuTdz0AB-t4gffEBgU-7" target="ysZuTdz0AB-t4gffEBgU-10">
+        <mxCell id="ysZuTdz0AB-t4gffEBgU-13" value="next_high" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ysZuTdz0AB-t4gffEBgU-7" target="ysZuTdz0AB-t4gffEBgU-10">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ysZuTdz0AB-t4gffEBgU-7" value="" style="whiteSpace=wrap;html=1;aspect=fixed;rounded=0;strokeColor=default;" vertex="1" parent="1">
+        <mxCell id="ysZuTdz0AB-t4gffEBgU-7" value="&lt;div style=&quot;&quot;&gt;&lt;span&gt;if score &amp;gt; highest_score&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;next_high = score&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;else&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;&quot;&gt;&lt;span&gt;next_ high = highest_score&lt;/span&gt;&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;rounded=0;strokeColor=default;align=center;labelPosition=center;verticalLabelPosition=middle;verticalAlign=middle;" vertex="1" parent="1">
           <mxGeometry x="1830" y="1070" width="250" height="250" as="geometry" />
         </mxCell>
-        <mxCell id="ysZuTdz0AB-t4gffEBgU-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0.022;entryY=0.366;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="7CatKWjEML8j9O0Hms15-95" target="ysZuTdz0AB-t4gffEBgU-7">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="ysZuTdz0AB-t4gffEBgU-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="1" source="7CatKWjEML8j9O0Hms15-95">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1830" y="1162" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="ysZuTdz0AB-t4gffEBgU-9" value="" style="group" vertex="1" connectable="0" parent="1">
           <mxGeometry x="2260" y="1095" width="120" height="200" as="geometry" />
